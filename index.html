@@ -181,9 +181,8 @@
                     Abstract
                 </h3>
                 <p class="text-justify">
-
                     Computer end users have spent billions of hours completing daily tasks like tabular data processing and project timeline scheduling. Most of these tasks are repetitive and error-prone, yet most end users lack the skill of automating away these burdensome works. With the advent of large language models (LLMs), directing software with natural language user requests become a reachable goal.
-                    In this work, we propose a SheetCopilot agent which takes natural language task and control spreadsheet to fulfill the requirements. We propose a set of atomic actions as an abstraction of spreadsheet software functionalities. We further design a state machine-based task planning framework for LLMs to robustly interact with spreadsheets. We curate a representative dataset containing 221 spreadsheet control tasks and establish a fully automated evaluation pipeline for rigorously benchmarking the ability of LLMs in software control tasks. Our SheetCopilot correctly completes 44.3\% of tasks for a single generation, outperforming the strong code generation baseline by a wide margin.
+                    In this work, we propose a SheetCopilot agent which takes natural language task and control spreadsheet to fulfill the requirements. We propose a set of atomic actions as an abstraction of spreadsheet software functionalities. We further design a state machine-based task planning framework for LLMs to robustly interact with spreadsheets. We curate a representative dataset containing 221 spreadsheet control tasks and establish a fully automated evaluation pipeline for rigorously benchmarking the ability of LLMs in software control tasks. Our SheetCopilot correctly completes 44.3% of tasks for a single generation, outperforming the strong code generation baseline by a wide margin.
                 </p>
             </div>
         </div>
@@ -191,8 +190,13 @@
         <div class="row">
             <div class="col-md-8 col-md-offset-2 col-xs-12">
                 <h3>
-                    Approach
+                    Method
                 </h3>
+                
+                <!-- Mehtod Overview-->
+                <h4>
+                    Overview
+                </h4>
                 <p style="text-align:center;">
                     <img src="img/approach.png" class="img-responsive">
                 </p>
@@ -200,6 +204,32 @@
                 <p class="text-justify">
                   We maneuver the proposed SheetCopilot for controlling software such as Microsoft Excel to generate solutions fulfilling the user's requirements in the instruction. SheetCopilot plans an initial atomic action according to the sheet state and then revises this plan using the external document containing the action usage. Finally, the action with its arguments is extracted from the revised plan and submitted to the simulation environment for execution. The entire process on the right shows that SheetCopilot successfully solves the task specified in the instruction using the provided available atomic actions.
                 </p>    
+
+                <p><br></p>
+
+                <!-- State Machine -->
+                <h4>
+                    SheetCopilot State Machine
+                </h4>
+
+                <p style="text-align:center;">
+                    <img src="img/state_machine.png" class="img-responsive">
+                </p>
+                
+                <p class="text-justify">
+                    SheetCopilot utilizes a state machine-based planner which revises the plan according to feedback from either LMs or software. Our planner is divided into <b>observing</b>, <b>proposing</b>, <b>revising</b>, and <b>acting</b> stages. The state transition between these stages will be described below.
+                    <ul  class="text-justify">
+                        <li><b>Observing Stage.</b> A brief description of the sheet state is added to the query, providing information such as the column headers and the number of rows. This helps to generate solutions in a <b>closed-loop</b> manner by observing the previous actions' consequences.</li>
+                        <li><b>Proposing Stage.</b> The system prompt, task instruction, sheet state, and planning history are concatenated into one complete query, which is used to prompt the language model (e.g. GPT-3.5) to plan the next atomic action</li>
+                        <li><b>Revising Stage.</b> Two ways are adopted to revise a proposed atomic action: a feedback-based one and a retrieval-based one. <i>Feedback-based revision</i> utilizes the error feedback from both the action validation process and the spreadsheet software execution. Additionally, we use <i>Retrieval-based revision</i> to supply the model with detailed external knowledge that does not fit in the system prompt due to the context window limit.</li>
+                        <li><b>Acting Stage.</b> After the proposing and revising stages, the atomic action is submitted to the spreadsheet software for execution.</li>
+                    </ul>
+                    In the above diagram, the transfer condition (orange texts within brackets) must be fulfilled before performing the corresponding operation (green texts) to transfer to a next state.
+                    
+
+                </p>    
+
+                
             </div>
         </div>
 
@@ -208,146 +238,135 @@
         <div class="row" id="demo">
             <div class="col-md-8 col-md-offset-2 col-xs-12">
                 <h3>
-                    Demo
+                    Dataset
                 </h3>
-                <p>
-                  SheetCopilot example: Handling sales data. The left column shows that SheetCopilot generates a step-by-step solution according to the sheet state feedback and correctly revises its mistakes using the external atomic action document as well as the error feedback. The incorrect arguments are marked with red rectangles. The right column demonstrates the state changes of the evaluation sheet corresponding to each step on the left. For illustration clarity, only brief documents are displayed.
+                <p class="text-justify">
+                    We construct <a href="https://paperswithcode.com/dataset/sheetcopilot">a high-quality evaluation benchmark</a> as a foundation for assessing the spreadsheet control capabilities of various methods interested in this field, such as LLM-based methods and reinforcement learning-based methods.<br>
+                    The SheetCopilot dataset contains 28 evaluation workbooks and 221 spreadsheet manipulation tasks that are applied to these workbooks. These tasks involve diverse atomic actions related to the six task categories (i.e. Entry and manipulation, Formatting, Management, Charts, Pivot Table, and Formula).<br>
+                    <b>Dataset statistics:</b><br>
+                    1. Each task possesses one or more ground truth solutions.<br>
+                    2. The lengths of the task instructions range from 20 to 530 characters, with most tasks between 80 and 110 characters.<br>
+                    3. The numbers of atomic actions required by the tasks range from 1 to 9.<br>
+                    <b>Evaluation metrics:</b>
+                    <ul class="text-justify">
+                        <li><b>Exec@1</b> measures the proportion of solutions executed without throwing exceptions.</li>
+                        <li><b>Pass@1</b> is used to evaluate functional correctness.</li>
+                        <li>Beyond correctness, we propose <b>A50</b> and <b>A90</b> scores to measure solution efficiency. These two metrics divide the number of atomic actions in a generated plan by the number in the ground truth and then calculate the 50th and 90th percentiles over all tasks. (Lower A50 and A90 scores indicate that the LLM tends to use fewer actions for completing a task.)</li>
+                    </ul>
+                    
+                    A submitted solution is considered correct if the properties to be checked match those of any of the GT solutions of the corresponding task.<br>
                 </p>
+                <p><br></p>
 
-                <div class="row">
-                    <div class="col-md-8 col-md-offset-2 col-xs-12">
-                        <img src="img/SalesData_demo.png" width="100%" alt="SheetCopilot example: Handling sales data.">
-                    </div>
-                    
-                    <!-- <div class="col-md-2 col-sm-2 col-xs-4">
-                      <img src="img/demo_img/donut.png" width="100%" alt="Given <b>img</b>. Q: What flavor is the pink doughnut on the right? A:[sep] strawberry.. Q: What flavor is the doughnut on the left? A blueberry. " onclick="populateDemo(this);">
-                    </div>
-                    <div class="col-md-2 col-sm-2 col-xs-4">
-                      <img src="img/demo_img/darpa-robot.jpg" width="100%" alt="Given <b>img</b>. Q: What will the robot do next? A: [sep] fall." onclick="populateDemo(this);">
-                    </div>
-                    <div class="col-md-2 col-sm-2 col-xs-4">
-                      <img src="img/demo_img/cake.jpg" width="100%" alt="Robot: I am a robot operating in a kitchen. Given <b>img</b>, When a human asks me to do a task, I will respond with the sequence of actions I would do to accomplish the task with only the items I see.  Human: Use all of the ingredients you see to make a cake batter. [sep]1. crack egg. 2. put egg in bowl. 3. put flour in bowl. 4. put sugar in bowl. 5. mix. 6. put in pan. 7. bake. 8. eat. 9. clean up." onclick="populateDemo(this);">
-                    </div>
-                    <div class="col-md-2 col-sm-2 col-xs-4">
-                        <img src="img/demo_img/menu2.jpg" width="100%" alt="Given <b>img</b>. Q: I am getting just two custom pizza for me and my friend. How much should I pay in total? A: Let's think step by step. [sep] 1st step: 2 custom pizzas. 2nd step: 2 x $9.99. 3rd step: $19.98." onclick="populateDemo(this);">
-                    </div>
-                    <div class="col-md-2 col-sm-2 col-xs-4">
-                        <img src="img/demo_img/fruits.jpg" width="100%" alt="Given <b>img</b>. Q: What's in the image? Answer in emojis. A: [sep]🍏🍌🍇🍐🍑🍈🍒. " onclick="populateDemo(this);">
-                    </div>
-                    <p></p>
-                    <div class="col-md-2 col-sm-2 col-xs-4">
-                        <img src="img/demo_img/cleaning.jpg" width="100%" alt="Given <b>img</b>. Q: If a robot wanted to be useful here, what steps should it take? A: [sep]clean table..pick up trash.. pick up chairs.. wipe chairs.. put chairs down." onclick="populateDemo(this);">
-                    </div>
-                    <div class="col-md-2 col-sm-2 col-xs-4">
-                        <img src="img/demo_img/kobe.jpg" width="100%" alt="Given <b>img</b>. Q: How many championship rings did the player on the left win in his career A: Let’s think step by step. [sep] 1. kobe bryant is on the left. 2. kobe bryant has won 5 championship rings." onclick="populateDemo(this);">
-                    </div>
-                    <div class="col-md-2 col-sm-2 col-xs-4">
-                        <img src="img/demo_img/bike.png" width="100%" alt="Given <b>img</b>. Q: Can I go down this street on a bicycle, yes or no? A: Let's think step by step. [sep] 1. do not enter. 2. except bicycles. 3. do not enter except bicycles. 4. yes." onclick="populateDemo(this);">
-                    </div>
-                    <div class="col-md-2 col-sm-2 col-xs-4">
-                        <img src="img/demo_img/donkey.jpg" width="100%" alt="I see (image omitted). Description: A cow sitting on a rug. Joke: Why is the cow sitting on a rug? Because it wants to be a cow-ch!I see <b>img</b>.[sep] Description: a donkey is carrying a dog, cat, and rooster. Joke: what do you call a donkey with a rooster on his back. A rooster booster. "
-                         onclick="populateDemo(this);">
-                    </div>
-                    <div class="col-md-2 col-sm-2 col-xs-4">
-                        <img src="img/demo_img/compare.png" width="100%" alt="Photo 1: <b>img1</b>.  Photo 2: <b>img2</b>.  Q: What is in Photo 1 but NOT in Photo 2? A: Let's think step by step and explain.[sep] Photo 1 has sunglasses on top of folded clothes. Photo 2 does not have sunglasses on top of folded clothes. Therefore, sunglasses are in Photo 1 but not in Photo 2." onclick="populateDemo(this);">
-                    </div>
-                    <div class="col-md-2 col-sm-2 col-xs-4">
-                        <img src="img/demo_img/diary.png" width="100%" alt=" Photo 1, at 10:30 am: <b>img1</b>. Photo 2, at 12:45 pm: <b>img2</b>. Photo 3, at 3:45 pm: <b>img3</b>. Q: I forget, what did I have for lunch, and what time was it? A: Let's think step by step. [sep]1. you had a sandwich for lunch. 2. it was 12:45 pm." onclick="populateDemo(this);">
-                    </div> -->
-                </div>
-                <p></p>
+                <!-- Dataset word clouds -->
+                <p style="text-align:center;">
+                    <img src="img/dataset_img/two_clouds.png" width="100%" alt="SheetCopilot example: Handling sales data.">
+                </p>
+                        
+                <p class="text-justify">
+                    <b>Dataset overview.</b> An overview of our dataset in shown by the wordclouds of the instructions and involved atomic actions. The two clouds show that our dataset contains diverse tasks that involve various spreadsheet operations.
+                </p>
+                <p><br></p>
 
-                <!-- <div class="row border rounded" style="padding-top:10px; padding-bottom:10px;">
-                    <div class="col-md-6">
-                        <img class="img img-responsive" id="expandedImg" style="height: 300px;" src="img/placeholder.png">
-                    </div>
-                    <div class="col-md-6">
-                    <div id="imgtext">Prompt text in gray.</div>
-                    <div><p style="test-align:center" id="answer">PaLM-E response in orange shade.</p></div>
-                    </div>
-                    
-                </div>
-                <p></p>
+                <!-- Cate proportions and donut chart -->
+                <p style="text-align:center;">
+                    <img src="img/dataset_img/CatePropAndVerbNoun.png" width="100%" alt="SheetCopilot example: Handling sales data.">
+                </p>
+                        
+                <p class="text-justify">
+                    Left: The proportions of the six categories. Right: Diversity of the verb-noun phrases in the core set. We demonstrate the diversity of the core set by showing the top 10 most frequent root verbs (the inner circle) and their direct noun objects (the outer circle) in the instructions.
+                </p>
+                <p><br></p>
 
-                <div class="row">
-                    <div class="col-md-2 col-sm-2 col-xs-4">
-                      <img src="img/demo_img/lt1.png" width="100%" alt="Given <b>img</b>. Q: What was the task? A:[sep]Prediction: make one vertical line out of the red and blue blocks, then make a vertical line out of the green and yellow blocks" onclick="populateDemo(this);">
-                    </div>
-                    <div class="col-md-2 col-sm-2 col-xs-4">
-                      <img src="img/demo_img/lt2.png" width="100%" alt="Given <b>img</b>. Q: What might have happend? A:[sep]Prediction: move the green circle to the left of the green star " onclick="populateDemo(this);">
-                    </div>
-                    <div class="col-md-2 col-sm-2 col-xs-4">
-                        <img src="img/demo_img/bag_chip.png" width="100%" alt="Robot: I am a robot operating in an office kitchen. When a human asks me to do a task, I will respond with the sequence of actions I would do to accomplish the task. Human: apportez-moi les chips de riz du tiroir. Robot: 1. go to drawers. 2. open top drawer. I see <b>img</b> [sep]3. pick green rice chip bag from top drawer and place on counter." onclick="populateDemo(this);">
-                      </div>
-                      <div class="col-md-2 col-sm-2 col-xs-4">
-                        <img src="img/demo_img/apple.png" width="100%" alt="Robot: I am a robot operating in an office kitchen. When a human asks me to do a task, I will respond with the sequence of actions I would do to accomplish the task. Human: bring me an apple. Robot: 1. go to apple. I see <b>img</b> [sep] 2. pick apple. 3. go to robot operator. 4. place apple. 5. done." onclick="populateDemo(this);">
-                      </div>
-                      <div class="col-md-2 col-sm-2 col-xs-4">
-                        <img src="img/demo_img/greenstar.png" width="100%" alt="Robot: I am a robot operating in an office kitchen. When a human asks me to do a task, I will respond with the sequence of actions I would do to accomplish the task. Human: bring me a green star. Robot: 1. go to green star. I see <b>img</b> [sep] 2. pick green star.. 3. go to robot operator.. 4. place green star.. 5. done." onclick="populateDemo(this);">
-                      </div>
-                      <div class="col-md-2 col-sm-2 col-xs-4">
-                        <img src="img/demo_img/damp.jpg" width="100%" alt="Given <b>img</b>. Q: How to grasp the red object?[sep]A: First grasp the green object an place it on the table, then grasp the red object." onclick="populateDemo(this);">
-                      </div>
+                <!-- Histograms -->
+                <p style="text-align:center;">
+                    <img src="img/dataset_img/Instruc&ActDistributions.png" width="100%" alt="SheetCopilot example: Handling sales data.">
+                </p>
+                        
+                <p class="text-justify">
+                    <b>Dataset statistics.</b> The distributions of the instruction lengths and the numbers of atomic actions involved in each instruction. The two histograms demonstrate the diverse task complexity of the core set.
+                </p>
+                <p><br></p>
 
-                      <p></p>
-                      <div class="col-md-2 col-sm-2 col-xs-4">
-                        <img src="img/demo_img/lt3.png" width="100%" alt="Given <b>img</b>. Q: Which block is not currently in the group? A:[sep] red circle." onclick="populateDemo(this);">
-                      </div>
-                      <div class="col-md-2 col-sm-2 col-xs-4">
-                        <img src="img/demo_img/lt4.png" width="100%" alt="Given <b>img</b>. Q: Which blocks of the same color are closest together? A:[sep] yellow blocks." onclick="populateDemo(this);">
-                      </div>
-                      <div class="col-md-2 col-sm-2 col-xs-4">
-                        <img src="img/demo_img/lt5.png" width="100%" alt="Given <b>img</b>. Q: What was the task? A:[sep]put all the blocks in a horizontal line." onclick="populateDemo(this);">
-                      </div>
-                      <div class="col-md-2 col-sm-2 col-xs-4">
-                        <img src="img/demo_img/lt6.png" width="100%" alt="Given <b>img</b>. Q: Which block is missing from the horizontal line? A:[sep] blue triangle." onclick="populateDemo(this);">
-                      </div>
-                      <div class="col-md-2 col-sm-2 col-xs-4">
-                        <img src="img/demo_img/biarm.jpg" width="100%" alt="Given <b>img</b>. Q: How to stack the yellow object on top of the blue plate? [sep] A: First grasp the orange object with the left arm and place it on the table, then grasp yellow object with the left arm and place it on the table, then grasp the yellow object with the right arm and place it on the blue plate." onclick="populateDemo(this);">
-                      </div>
-                      <div class="col-md-2 col-sm-2 col-xs-4">
-                        <img src="img/demo_img/biarm2.jpg" width="100%" alt="Given <b>img</b>. Q: How to stack the white object on top of the red object? [sep] A: First grasp the red object and place it on the table, then grasp the white object and place if on the red object." onclick="populateDemo(this);">
-                      </div>
-
-                </div> -->
-        
+                
             </div>
         </div>
-
-        <!-- <div class="row">
+        
+        <div class="row" id="demo">
             <div class="col-md-8 col-md-offset-2 col-xs-12">
                 <h3>
-                    Citation 
-                </h3> 
-                <a href="https://arxiv.org/abs/2303.03378">[arxiv version]</a>
-                <div class="form-group col-md-10 col-md-offset-1">
-                    <textarea id="bibtex" class="form-control" readonly>
-@inproceedings{driess2023palme,
-    title={PaLM-E: An Embodied Multimodal Language Model},
-    author={Driess, Danny and Xia, Fei and Sajjadi, Mehdi S. M. and Lynch, Corey and Chowdhery, Aakanksha and Ichter, Brian and Wahid, Ayzaan and Tompson, Jonathan and Vuong, Quan and Yu, Tianhe and Huang, Wenlong and Chebotar, Yevgen and Sermanet, Pierre and Duckworth, Daniel and Levine, Sergey and Vanhoucke, Vincent and Hausman, Karol and Toussaint, Marc and Greff, Klaus and Zeng, Andy and Mordatch, Igor and Florence, Pete},
-    booktitle={arXiv preprint arXiv:2303.03378},
-    year={2023}
-}</textarea>
-                </div>
+                    Demo
+                </h3>
+                <p class="text-justify">
+                  SheetCopilot example: Handling sales data. The left column shows that SheetCopilot generates a step-by-step solution according to the sheet state feedback and correctly revises its mistakes using the external atomic action document as well as the error feedback. The incorrect arguments are marked with red rectangles. The right column demonstrates the state changes of the evaluation sheet corresponding to each step on the left. For illustration clarity, only brief documents are displayed.
+                </p>
+                
+                <img src="img/SalesData_demo.png" width="100%" alt="SheetCopilot example: Handling sales data.">
+                <p></p>
+
             </div>
         </div>
-
 
         <div class="row">
             <div class="col-md-8 col-md-offset-2 col-xs-12">
                 <h3>
-                    Acknowledgements
+                    Results
                 </h3>
-                <p class="text-justify">
-                    The authors would like to thank, for their advice, help
-                    and support: Xi Chen, Etienne Pot, Sebastian Goodman,
-                    Ted Xiao, Keerthana Gopalakrishnan, Kehang Han, Henryk
-                    Michalewski, Neil Houlsby, Basil Mustafa, Justin Gilmer,
-                    Yonghui Wu, Erica Moreira, Victor Gomes, Tom Duerig,
-                    and Kendra Byrne.
+
+                <!-- LLM comparison -->
+                <p style="text-align:center;">
+                    <img src="img/exp_img/LLM_comparison.png" class="img-responsive" width="60%">
                 </p>
+
+                <p class="text-justify">
+                    <b>Exp. 1.1: Performances of three leading LLMs and a VBA-based method.</b> The three LLMs exhibit impressive Exec@1 and Pass@1, with GPT-3.5-Turbo achieving the highest Exec@1 and GPT-4 obtaining the best Pass@1 and efficiency. With our method, GPT-3.5-Turbo outperforms the method that generates and runs VBA code by a large margin.
+                </p>
+                <p><br></p>
+
+                <!-- Radar charts -->
+                <p style="text-align:center;">
+                    <img src="img/exp_img/RadarCharts.png" class="img-responsive">
+                </p>
+
+                <p class="text-justify">
+                    <b>Exp 1.2: The four metrics shown in the above table are decomposed in the six task categories.</b> The two GPT models both achieve 100% Exec@1 and Pass@1 in the Management and Entry \& manipulation categories. The three models obtain their own best efficiency in different categories, suggesting that it is difficult for these models to excel in all task categories.
+                </p> 
+                <p><br></p>
+
+                <!-- Ablation studies -->
+                <p style="text-align:center;">
+                    <img src="img/exp_img/ablation_studies.png" class="img-responsive">
+                </p>
+
+                <p class="text-justify">
+                    <b>Exp 2: Ablation studies of the proposed observe-propose-revise-act framework used by our SheetCopilot.</b> The sheet state and error feedback increase the Exec@1 and Pass@1 when individually applied (rows 3, 4 vs. 2) and bring a significant improvement when both are applied (row 7 vs. 2). Inserting the external atomic action document with usage examples boosts the Exec@1 and Pass@1 and increases efficiency (row 2 vs. 1 and row 7 vs. 5). The synergy of the four components witnesses a large increase (30.7%) in Exec@1 over the baseline (row 7 vs. 1).
+                </p> 
+                <p><br></p>
+
+                <!-- Synonyms -->
+                <p style="text-align:center;">
+                    <img src="img/exp_img/synonyms.png" class="img-responsive" width="60%">
+                </p>
+
+                <p class="text-justify">
+                    <b>Exp 3: Ablation study of the atomic action names.</b> To inspect the potential confusion problem, we conduct an ablation study for GPT-3.5-Turbo on the full dataset by comparing the impact of adopting the official names and the synonyms. The table above <b>surprisingly</b> shows that using the synonyms increases the Pass@1 and obtains higher efficiency (lower A50/A90), which means that the model learns to use the synonyms to generate more correct solutions with fewer steps. <b>This result demonstrates the flexibility of our method: it is possible for users to define their own atomic actions and prompt LLMs to use them. </b>
+                </p> 
+                <p><br></p>
+
+                <!-- Stability -->
+                <p style="text-align:center;">
+                    <img src="img/exp_img/stability.png" class="img-responsive" width="60%">
+                </p>
+
+                <p class="text-justify">
+                    <b>Exp 4: Ablation study of the atomic action names.</b> We evaluate the stability of our method by running the full method three times at temperature=0.2 and calculate the averages for the four metrics. The table above shows that the metrics are stable with slight deviations from the metric values when temperature=0.0.
+                </p> 
+                <p><br></p>
+
             </div>
-        </div> -->
+        </div>
+
+
 
 
 
