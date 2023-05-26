@@ -114,7 +114,7 @@
         <div class="row">
             <p></p> <p></p>
             <div class="col-md-12 text-center">
-                <strong><font size="+3">SheetCopilot: Bringing Software Productivity to the Next Level through Large Language Models</font></strong> 
+                <font size="+5"><b>SheetCopilot:</b></font><br> <font size="+3">Bringing Software Productivity to the Next Level through Large Language Models</font><br>
             </div>
         </div>
         <div class="row">
@@ -182,7 +182,7 @@
                 </h3>
                 <p class="text-justify">
                     Computer end users have spent billions of hours completing daily tasks like tabular data processing and project timeline scheduling. Most of these tasks are repetitive and error-prone, yet most end users lack the skill of automating away these burdensome works. With the advent of large language models (LLMs), directing software with natural language user requests become a reachable goal.
-                    In this work, we propose a SheetCopilot agent which takes natural language task and control spreadsheet to fulfill the requirements. We propose a set of atomic actions as an abstraction of spreadsheet software functionalities. We further design a state machine-based task planning framework for LLMs to robustly interact with spreadsheets. We curate a representative dataset containing 221 spreadsheet control tasks and establish a fully automated evaluation pipeline for rigorously benchmarking the ability of LLMs in software control tasks. Our SheetCopilot correctly completes 44.3% of tasks for a single generation, outperforming the strong code generation baseline by a wide margin.
+                    In this work, we propose a SheetCopilot agent which takes natural language task and control spreadsheet to fulfill the requirements. We propose a set of atomic actions as an abstraction of spreadsheet software functionalities. We further design a state machine-based task planning framework for LLMs to robustly interact with spreadsheets. We curate a representative dataset containing 221 spreadsheet control tasks and establish a fully automated evaluation pipeline for rigorously benchmarking the ability of LLMs in software control tasks. Our SheetCopilot correctly completes 44.3% of the tasks for a single generation, outperforming the strong code generation baseline by a wide margin.
                 </p>
             </div>
         </div>
@@ -202,7 +202,7 @@
                 </p>
 
                 <p class="text-justify">
-                  We maneuver the proposed SheetCopilot for controlling software such as Microsoft Excel to generate solutions fulfilling the user's requirements in the instruction. SheetCopilot plans an initial atomic action according to the sheet state and then revises this plan using the external document containing the action usage. Finally, the action with its arguments is extracted from the revised plan and submitted to the simulation environment for execution. The entire process on the right shows that SheetCopilot successfully solves the task specified in the instruction using the provided available atomic actions.
+                  We maneuver SheetCopilot to control software such as Microsoft Excel, generate step-by-step solutions fulfilling the user's requirements. In each step, SheetCopilot plans an initial atomic action according to the sheet state and then revises this step using the external document which provides the action usage and examples. Finally, the action with its arguments is extracted from the revised step and submitted to the simulation environment for execution. The entire process on the right shows that SheetCopilot successfully solves the task specified in the instruction using the provided available atomic actions.
                 </p>    
 
                 <p><br></p>
@@ -217,16 +217,14 @@
                 </p>
                 
                 <p class="text-justify">
-                    SheetCopilot utilizes a state machine-based planner which revises the plan according to feedback from either LMs or software. Our planner is divided into <b>observing</b>, <b>proposing</b>, <b>revising</b>, and <b>acting</b> stages. The state transition between these stages will be described below.
+                    SheetCopilot utilizes a state machine-based planner which revises the plan according to the feedback from either external documnets or the software it controls. Our planner is divided into <b>observing</b>, <b>proposing</b>, <b>revising</b>, and <b>acting</b> stages. The state transition between these stages will be described below.
                     <ul  class="text-justify">
                         <li><b>Observing Stage.</b> A brief description of the sheet state is added to the query, providing information such as the column headers and the number of rows. This helps to generate solutions in a <b>closed-loop</b> manner by observing the previous actions' consequences.</li>
-                        <li><b>Proposing Stage.</b> The system prompt, task instruction, sheet state, and planning history are concatenated into one complete query, which is used to prompt the language model (e.g. GPT-3.5) to plan the next atomic action</li>
-                        <li><b>Revising Stage.</b> Two ways are adopted to revise a proposed atomic action: a feedback-based one and a retrieval-based one. <i>Feedback-based revision</i> utilizes the error feedback from both the action validation process and the spreadsheet software execution. Additionally, we use <i>Retrieval-based revision</i> to supply the model with detailed external knowledge that does not fit in the system prompt due to the context window limit.</li>
+                        <li><b>Proposing Stage.</b> The system prompt, task instruction, sheet state, and planning history are concatenated into one complete query, which is used to prompt the language model (e.g. GPT-3.5) to propose an atomic action</li>
+                        <li><b>Revising Stage.</b> Two ways are adopted to revise the proposed atomic action: a feedback-based one and a retrieval-based one. <i>Feedback-based revision</i> utilizes the error feedback from both the action validation process and the spreadsheet software execution. Additionally, we use <i>Retrieval-based revision</i> to supply the model with detailed external action documents that does not fit in the system prompt due to the context window limit.</li>
                         <li><b>Acting Stage.</b> After the proposing and revising stages, the atomic action is submitted to the spreadsheet software for execution.</li>
                     </ul>
                     In the above diagram, the transfer condition (orange texts within brackets) must be fulfilled before performing the corresponding operation (green texts) to transfer to a next state.
-                    
-
                 </p>    
 
                 
@@ -241,8 +239,8 @@
                     Dataset
                 </h3>
                 <p class="text-justify">
-                    We construct <a href="https://paperswithcode.com/dataset/sheetcopilot">a high-quality evaluation benchmark</a> as a foundation for assessing the spreadsheet control capabilities of various methods interested in this field, such as LLM-based methods and reinforcement learning-based methods.<br>
-                    The SheetCopilot dataset contains 28 evaluation workbooks and 221 spreadsheet manipulation tasks that are applied to these workbooks. These tasks involve diverse atomic actions related to the six task categories (i.e. Entry and manipulation, Formatting, Management, Charts, Pivot Table, and Formula).<br>
+                    We construct the SheetCopilot dataset, <a href="https://paperswithcode.com/dataset/sheetcopilot">a high-quality evaluation benchmark</a> as a foundation for assessing the spreadsheet control capabilities of various methods interested in this field, such as LLM-based methods and reinforcement learning-based methods.<br>
+                    The dataset contains 28 evaluation workbooks and 221 spreadsheet manipulation tasks applied to these workbooks. These tasks involve diverse atomic actions related to the six task categories (i.e. Entry and manipulation, Formatting, Management, Charts, Pivot Table, and Formula).<br>
                     <b>Dataset statistics:</b><br>
                     1. Each task possesses one or more ground truth solutions.<br>
                     2. The lengths of the task instructions range from 20 to 530 characters, with most tasks between 80 and 110 characters.<br>
@@ -298,7 +296,7 @@
                     Demo
                 </h3>
                 <p class="text-justify">
-                  SheetCopilot example: Handling sales data. The left column shows that SheetCopilot generates a step-by-step solution according to the sheet state feedback and correctly revises its mistakes using the external atomic action document as well as the error feedback. The incorrect arguments are marked with red rectangles. The right column demonstrates the state changes of the evaluation sheet corresponding to each step on the left. For illustration clarity, only brief documents are displayed.
+                  SheetCopilot example: Handling sales data. The <b>left</b> column shows that SheetCopilot generates a step-by-step solution according to the sheet state feedback and correctly revises its mistakes using the external atomic action document as well as the error feedback. The incorrect arguments are marked with <font color="#DC143C">red</font> rectangles. The <b>right</b> column demonstrates the state changes of the evaluation sheet corresponding to each step on the left. For illustration clarity, only brief documents are displayed.
                 </p>
                 
                 <img src="img/SalesData_demo.png" width="100%" alt="SheetCopilot example: Handling sales data.">
@@ -329,7 +327,7 @@
                 </p>
 
                 <p class="text-justify">
-                    <b>Exp 2: The four metrics shown in the above table are decomposed in the six task categories.</b> The two GPT models both achieve 100% Exec@1 and Pass@1 in the Management and Entry \& manipulation categories. The three models obtain their own best efficiency in different categories, suggesting that it is difficult for these models to excel in all task categories.
+                    <b>Exp 2: The four metrics shown in the above table are decomposed in the six task categories.</b> The two GPT models both achieve 100% Exec@1 and Pass@1 in the Management and Entry & manipulation categories. The three models obtain their own best efficiency in different categories, suggesting that it is difficult for these models to excel in all task categories.
                 </p> 
                 <p><br></p>
 
