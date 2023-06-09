@@ -125,8 +125,17 @@
                         Anonymous
                     </p>
 
+                    
                     <br><br>
-
+                    <!-- Institutes -->
+                    <!-- <sup>1</sup><a href="http://g.co/robotics">
+                        <img src="img/rng-logo.png" height="37px"> </a>
+                        <sup>2</sup><a href="https://www.tu.berlin/en/">
+                        <img src="img/tuberlin.png" height="32px"> </a> &nbsp;&nbsp;
+                        <sup>3</sup><a href="https://research.google/teams/brain/">  
+                        <img src="img/google-research-logo.png" height="25px"> </a>  -->
+                        
+                    </ul>
 
             </div>
         </div>
@@ -136,7 +145,7 @@
             <div class="col-md-4 col-md-offset-4 text-center">
                 <ul class="nav nav-pills nav-justified">
                     <li>
-                        <a href="">
+                        <a href="https://arxiv.org/abs/2305.19308">
                         <img src="img/paper_thumb.png" height="60px">
                             <h4><strong>Paper</strong></h4>
                         </a>
@@ -167,9 +176,9 @@
         <div class="row">
             
             <div class="col-md-8 col-md-offset-2 col-xs-12">
-                <video id="v0" width="100%" playsinline muted loop autoplay onclick="setAttribute('controls', 'true');">
+                <!-- <video id="v0" width="100%" playsinline muted loop autoplay onclick="setAttribute('controls', 'true');">
                     <source src="videos/SheetCopilot Demo2_1k.mp4" type="video/mp4">
-                </video>		
+                </video>		 -->
 
                 <h3>
                     Abstract
@@ -178,6 +187,54 @@
                     Computer end users have spent billions of hours completing daily tasks like tabular data processing and project timeline scheduling. Most of these tasks are repetitive and error-prone, yet most end users lack the skill of automating away these burdensome works. With the advent of large language models (LLMs), directing software with natural language user requests become a reachable goal.
                     In this work, we propose a SheetCopilot agent which takes natural language task and control spreadsheet to fulfill the requirements. We propose a set of atomic actions as an abstraction of spreadsheet software functionalities. We further design a state machine-based task planning framework for LLMs to robustly interact with spreadsheets. We curate a representative dataset containing 221 spreadsheet control tasks and establish a fully automated evaluation pipeline for rigorously benchmarking the ability of LLMs in software control tasks. Our SheetCopilot correctly completes 44.3% of the tasks for a single generation, outperforming the strong code generation baseline by a wide margin.
                 </p>
+            </div>
+        </div>
+
+        <div class="row" id="demo">
+            <div class="col-md-8 col-md-offset-2 col-xs-12">
+                <h3>
+                    See The Magic of SheetCopilot
+                </h3>
+                <h4>
+                    Plotting charts
+                </h4>
+                <video id="v0" width="100%" playsinline muted loop autoplay onclick="setAttribute('controls', 'true');">
+                    <source src="videos/XYScatterPlot_Demo.mp4" type="video/mp4">
+                </video>
+                <br>
+
+                <h4>
+                    Analyzing And Visualizing Sales Data
+                </h4>
+                <video id="v0" width="100%" playsinline muted loop autoplay onclick="setAttribute('controls', 'true');">
+                    <source src="videos/EntireSummerSales_Demo.mp4" type="video/mp4">
+                </video>
+                <br>
+
+                <h4>
+                    Managing Huge Tables over A Cup of Coffee (Thousands of rows)
+                </h4>
+                <video id="v0" width="100%" playsinline muted loop autoplay onclick="setAttribute('controls', 'true');">
+                    <source src="videos/EasyGDP_Demo.mp4" type="video/mp4">
+                </video>
+                <br>
+
+                <h4>
+                    SheetCopilot as An Interactive Add-on for Google Sheets
+                </h4>
+
+                <!-- Interactive DEMO -->
+                <video id="v0" width="100%" playsinline muted loop autoplay onclick="setAttribute('controls', 'true');">
+                    <source src="videos/GoogleSheets_demo.mp4" type="video/mp4">
+                </video>		
+
+                <p class="text-justify">
+                    <b> SheetCopilot breaks new ground in human-computer interaction, opening up possibilities for enabling non-expert users to complete their mandane work on complex software (e.g. Google sheets and Excel) via a language interface. </b>
+                </p>
+                <p><br></p>
+        
+                <p></p>
+
             </div>
         </div>
 
@@ -289,11 +346,11 @@
                 
             </div>
         </div>
-        
+
         <div class="row" id="demo">
             <div class="col-md-8 col-md-offset-2 col-xs-12">
                 <h3>
-                    Demo
+                    A Detailed Example
                 </h3>
                 <p class="text-justify">
                   SheetCopilot example: Handling sales data. The <b>left</b> column shows that SheetCopilot generates a step-by-step solution according to the sheet state feedback and correctly revises its mistakes using the external atomic action document as well as the error feedback. The incorrect arguments are marked with <font color="#DC143C">red</font> rectangles. The <b>right</b> column demonstrates the state changes of the evaluation sheet corresponding to each step on the left. For illustration clarity, only brief documents are displayed.
