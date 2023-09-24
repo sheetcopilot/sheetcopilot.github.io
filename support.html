@@ -1,0 +1,227 @@
+
+<!DOCTYPE html>
+<html>
+
+<head lang="en">
+    <meta charset="UTF-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+
+    <title>SheetCopilot support</title>
+
+    <meta name="description" content="SheetCopilot: Bringing Software Productivity to the Next Level through Large Language Models">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- <base href="/"> -->
+
+        <!--FACEBOOK-->
+    <!-- <meta property="og:image" content="https://sheetcopilot.github.io/img/SheetCopilot-teaser.png">
+    <meta property="og:image:type" content="image/png">
+    <meta property="og:image:width" content="1262">
+    <meta property="og:image:height" content="694">
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://sheetcopilot.github.io/"/>
+    <meta property="og:title" content="SheetCopilot: Bringing Software Productivity to the Next Level through Large Language Models" />
+    <meta property="og:description" content="Project page for SheetCopilot: Bringing Software Productivity to the Next Level through Large Language Models." /> -->
+
+        <!--TWITTER-->
+    <!-- <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="SheetCopilot: Bringing Software Productivity to the Next Level through Large Language Models" />
+    <meta name="twitter:description" content="Project page for SheetCopilot: Bringing Software Productivity to the Next Level through Large Language Models." />
+    <meta name="twitter:image" content="https://palm-e.github.io/img/SheetCopilot-teaser.png" /> -->
+
+
+<!--     <link rel="apple-touch-icon" href="apple-touch-icon.png"> -->
+  <!-- <link rel="icon" type="image/png" href="img/seal_icon.png"> -->
+    <!-- Place favicon.ico in the root directory -->
+    <link rel="icon" type="image/x-icon" href="img/icon.png">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.8.0/codemirror.min.css">
+    <link rel="stylesheet" href="css/app.css">
+
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.8.0/codemirror.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.5.3/clipboard.min.js"></script>
+    
+    <script src="js/app.js"></script>
+
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-52J0PM8XKV"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://malsup.github.io/jquery.form.js"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-52J0PM8XKV');
+
+  function submitForm() {
+    alert("Submitted successfully!");
+    $("#myForm").resetForm();
+    // $("#myForm").ajaxSubmit({
+    //     type: 'post',
+    //     url: 'http://175.45.13.118:8080/submit',
+    //     data: $(this).serialize(),
+    //     dataType: 'json',
+    //     success: function(data) {
+    //         alert("Submitted successfully!");
+    //         $("#myForm").resetForm();
+    //     },
+    //     // error: function(data) {
+    //     //     alert(JSON.stringify(data));
+    //     // }
+    // });
+    return false;
+  }
+
+  function clickTitle1() {
+    const content = $("#gettingStart");
+    if (content.css("display") == "none") {
+        content.css("display", "block");
+    } else {
+        content.css("display", "none");
+    }
+  }
+</script>
+	
+    <style>
+        body {
+            font-family: sans-serif;
+            font-size: 2rem;
+        }
+        .nav-pills {
+          position: relative;
+          display: inline;
+        }
+        .imtip {
+          position: absolute;
+          top: 0;
+          left: 0;
+        }
+        #myForm .form-group {
+            margin-top: 10px !important;
+            margin: 0 auto;
+            font-family: sans-serif;
+            width: 80%;
+            display: flex;
+            flex-direction: column;
+            flex-wrap: wrap;
+            font-size: 20px;
+        }
+        #myForm input {
+            width: 100%;
+            height: 40px;
+            margin-bottom: 20px;
+            border: 2px solid #676767;
+            border-radius: 5px;
+        }
+        #myForm textarea {
+            width: 100%;
+            height: 100px;
+            margin-bottom: 20px;
+            border: 2px solid #676767;
+            border-radius: 5px;
+        }
+        .clickable {
+            cursor: pointer;
+        }
+
+        .arrow {
+            display: inline-block;
+            width: 0;
+            height: 0;
+            border-style: solid;
+            border-width: 10px 10px 0 10px;
+            border-color: #999 transparent transparent transparent;
+            margin-left: 5px;
+        }
+
+        .clickable:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container" id="main">
+        <div class="col-md-8 col-md-offset-2">
+            <h1 id="title1" class="clickable" onclick="clickTitle1()">Getting started<span class="arrow"></span></h3>
+                <div id="gettingStart" style="display: none;">
+                    <p>1. Install from the Google Workspace Marketplace</p>
+                    <p>The SheetCopilot add-on can be found in the Google Marketplace here. Go to the listing and, while logged into the Google account you wish to utilize SheetCopilot from, click the install button.</p>
+                    <p>Next you will be prompted to grant SheetCopilot the permissions required for it to run.</p>
+                    <p>We take great care in only asking for the necessary permissions and do not collect or store any information not essential in running the service. You can view our <a href="./privacy_policy.html">policy</a> and <a href="./terms-of-service.html">terms of service</a> if you wish to understand more about how we use your data.</p>
+                    <p>Once all steps have been completed you can find SheetCopilot as a Google Spreadsheet Add-on:</p>
+                    <p></p>
+                    <figure>
+                        <div style="text-align: center;">
+                            <img src="img/SheetCopilot-Install.png" alt="image" width="60%">
+                            <p></p>
+                            <figcaption>SheetCopilot is now successfully installed</figcaption>
+                        </div>
+                        <p></p>
+                    </figure>
+                    <p>2. Set API Key</p>
+                    <p>SheetCopilot requires an OpenAI API key to run. You can get one by signing up for the OpenAI <a href="https://beta.openai.com/">here</a>. Once you have an API key, you can set it in SheetCopilot by clicking on the "Set API Key" button in the SheetCopilot menu:</p>
+                    <p></p>
+                    <figure>
+                        <div style="text-align: center;">
+                            <img src="img/SheetCopilot-SetAPI.png" alt="image" width="60%">
+                            <p></p>
+                            <figcaption>Configure API Key</figcaption>
+                        </div>
+                        <p></p>
+                    </figure>
+                    <p>3. Start using SheetCopilot</p>
+                    <p>SheetCopilot is now ready to use. You can chat with it by clicking on the "Open chat" button in the SheetCopilot menu:</p>
+                    <p></p>
+                    <figure>
+                        <div style="text-align: center;">
+                            <img src="img/SheetCopilot-OpenChat.png" alt="image" width="60%">
+                            <p></p>
+                            <figcaption>Open chat</figcaption>
+                        </div>
+                        <p></p>
+                    </figure>
+                </div>
+            
+            <h1>Submit a request</h2>
+            <p>Have a question about SheetCopilot? Use this form and we will get back to you fast!</p>
+            <form id="myForm" onsubmit="return submitForm()">
+                <div class="form-group">
+                    <input type="text" name="name" id="myForm-name" placeholder="Name" required>
+                    <input type="email" name="email" id="myForm-email" placeholder="Email" required>
+                    <textarea name="message" id="myForm-message" placeholder="Message" required></textarea>
+                    <input type="submit" value="Submit">
+                </div>
+            </form>
+            <p>You can also check out our <a href="./faq.html">FAQ</a> page for answers to common questions.</p>
+        </div>
+    </div>
+    <script>
+    const myCarousel = document.getElementById('carouselExampleCaptions')
+    myCarousel.addEventListener('slide.bs.carousel', event => {
+        myCarousel.getElementsByClassName("carousel-item")[event.from].getElementsByTagName("video")[0].pause();
+        myCarousel.getElementsByClassName("carousel-item")[event.to].getElementsByTagName("video")[0].play();
+    })
+
+    const myCarousel2 = document.getElementById('carouselExampleCaptions2')
+    myCarousel2.addEventListener('slide.bs.carousel', event => {
+        myCarousel2.getElementsByClassName("carousel-item")[event.from].getElementsByTagName("video")[0].pause();
+        myCarousel2.getElementsByClassName("carousel-item")[event.to].getElementsByTagName("video")[0].play();
+    })
+
+    const myCarousel3 = document.getElementById('carouselExampleCaptions3')
+    myCarousel3.addEventListener('slide.bs.carousel', event => {
+        myCarousel3.getElementsByClassName("carousel-item")[event.from].getElementsByTagName("video")[0].pause();
+        myCarousel3.getElementsByClassName("carousel-item")[event.to].getElementsByTagName("video")[0].play();
+    })
+
+    </script>
+</body>
+</html>

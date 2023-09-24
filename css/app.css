@@ -192,3 +192,19 @@ span.highlight {
   background-size: 100% 100%;
 }
 
+.colorful-star {
+    background: linear-gradient(45deg, red, orange, yellow, green, blue, indigo, violet);
+    -webkit-background-clip: text;
+    color: transparent;
+}
+
+.brown-coffee {
+  color: #6B4226;  /* This is a shade of brown resembling coffee. Adjust as needed. */
+}
+
+.fas.fa-pie {
+  color: #6B4226;  /* This is a shade of brown. Adjust as needed. */
+}
+
+
+

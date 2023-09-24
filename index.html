@@ -41,6 +41,7 @@
     <link rel="stylesheet" href="css/app.css">
 
     <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
@@ -119,12 +120,28 @@
         </div>
         <div class="row">
             <div class="col-md-12 text-center">
-                
+                <p>
+                    <img src="img/neurips-logo-new.svg" height="60px">
+                    Accepted to Neurip 2023
+                </p>
                 <ul class="list-inline">
                     <p>
-                        Anonymous
+                        Hongxin Li<sup>1,2*</sup>, 
+                        Jingran Su<sup>3,4*</sup>, 
+                        Yuntao Chen (project leader)<sup>3†</sup>, 
+                        Qing Li<sup>4†</sup>, 
+                        Zhaoxiang Zhang<sup>1,2,3†</sup>
                     </p>
-
+                    <p>
+                        <sup>1</sup>Institute of Automation, Chinese Academy of Sciences, 
+                        <sup>2</sup>University of Chinese Academy of Sciences, 
+                        <sup>3</sup>Centre for Artificial Intelligence and Robotics (CAIR), Hong Kong Institute of Science & Innovation, Chinese Academy of Sciences, 
+                        <sup>4</sup>The Hong Kong Polytechnic University 
+                    </p>
+                    <p>
+                        <sup>*</sup>Equal contribution.<br>
+                        <sup>†</sup>Equal advising.
+                    </p>
                     
                     <br><br>
                     <!-- Institutes -->
@@ -142,8 +159,26 @@
 
 
         <div class="row">
+            <div class="col-md-8 col-md-offset-2">
+                <p style="text-align:center;">
+                    <img src="img/logo.png" class="img-responsive" width="45%">
+                </p>
+                <p class="text-center">
+                    <b> SheetCopilot logo </b>
+                </p>
+                <br>
+            </div>
+
             <div class="col-md-4 col-md-offset-4 text-center">
+                
+                
                 <ul class="nav nav-pills nav-justified">
+                    <li>
+                        <a href="https://arxiv.org/abs/2305.19308">
+                        <img src="img/paper_thumb.png" height="60px">
+                            <h4><strong>Paper</strong></h4>
+                        </a>
+                    </li>
 
                     <li>
                         <a href="#demo">
@@ -156,19 +191,18 @@
                         <image src="img/google-ai-blog-small.png" height="60px">
                             <h4><strong>Blogpost</strong></h4>
                         </a>
-                    </li>
+                    </li> -->
                      <li>
-                        <a href="https://github.com/google-research/robotics_transformer">
+                        <a href="https://github.com/BraveGroup/SheetCopilot">
                         <image src="img/github.png" height="60px">
-                            <h4><strong>Code</strong></h4>
+                            <h4><strong>Code (Coming soon)</strong></h4>
                         </a>                   
-                    </li>  -->
+                    </li>
                 </ul>
             </div>
         </div>
 
         <div class="row">
-            
             <div class="col-md-8 col-md-offset-2 col-xs-12">
                 <!-- <video id="v0" width="100%" playsinline muted loop autoplay onclick="setAttribute('controls', 'true');">
                     <source src="videos/SheetCopilot Demo2_1k.mp4" type="video/mp4">
@@ -189,44 +223,77 @@
                 <h3>
                     See The Magic of SheetCopilot
                 </h3>
-                <h4>
-                    Plotting charts
-                </h4>
-                <video id="v0" width="100%" playsinline muted loop autoplay onclick="setAttribute('controls', 'true');">
-                    <source src="videos/XYScatterPlot_Demo.mp4" type="video/mp4">
-                </video>
-                <br>
-
-                <h4>
-                    Analyzing And Visualizing Sales Data
-                </h4>
-                <video id="v0" width="100%" playsinline muted loop autoplay onclick="setAttribute('controls', 'true');">
-                    <source src="videos/EntireSummerSales_Demo.mp4" type="video/mp4">
-                </video>
-                <br>
-
-                <h4>
-                    Managing Huge Tables over A Cup of Coffee (Thousands of rows)
-                </h4>
-                <video id="v0" width="100%" playsinline muted loop autoplay onclick="setAttribute('controls', 'true');">
-                    <source src="videos/EasyGDP_Demo.mp4" type="video/mp4">
-                </video>
-                <br>
+                <p class="text-justify">
+                    <b> SheetCopilot breaks new ground<i class="fas fa-star colorful-star"></i> in human-computer interaction, opening up possibilities for enabling non-expert users to complete their mundane work on complex software (e.g. Google sheets and Excel) via a language interface. </b>
+                </p>
 
                 <h4>
                     SheetCopilot as An Interactive Add-on for Google Sheets
                 </h4>
+                
 
                 <!-- Interactive DEMO -->
-                <video id="v0" width="100%" playsinline muted loop autoplay onclick="setAttribute('controls', 'true');">
-                    <source src="videos/GoogleSheets_demo.mp4" type="video/mp4">
+                <video id="interaction" width="100%" playsinline muted loop autoplay onclick="setAttribute('controls', 'true');">
+                    <source src="videos/Googlesheets-Calc-And-Formatting.mp4" type="video/mp4">
                 </video>		
-
                 <p class="text-justify">
-                    <b> SheetCopilot breaks new ground in human-computer interaction, opening up possibilities for enabling non-expert users to complete their mundane work on complex software (e.g. Google sheets and Excel) via a language interface. </b>
+                    <b> Demo 1: SheetCopilot helps users overcome over-complex formulas and highlight key data.</b>
                 </p>
+                
                 <p><br></p>
-        
+                
+                <!-- Interactive DEMO -->
+                <video id="interaction" width="100%" playsinline muted loop autoplay onclick="setAttribute('controls', 'true');">
+                    <source src="videos/Googlesheets-Pivot-And-Chart-1.mp4" type="video/mp4">
+                </video>		
+                <p class="text-justify">
+                    <b> Demo 2: Just leave to make a coffe and let the SheetCopilot do the analytics and visualization work <i class="fas fa-coffee brown-coffee"></i></b>
+                </p>
+                
+                <p><br></p>
+                
+                <!-- Interactive DEMO -->
+                <video id="interaction" width="100%" playsinline muted loop autoplay onclick="setAttribute('controls', 'true');">
+                    <source src="videos/Googlesheets-Pivot-And-Chart-2.mp4" type="video/mp4">
+                </video>		
+                <p class="text-justify">
+                    <b> Demo3: Let's make a pie!</b>
+                </p>
+                
+                <p><br></p>
+                
+                <h4>
+                    SheetCopilot for Excel
+                </h4>
+                <p class="text-justify">
+                    <b> You can easily connect SheetCopilot to Excel. </b>
+                </p>
+
+                <video id="xvscatter" width="100%" playsinline muted loop autoplay onclick="setAttribute('controls', 'true');">
+                    <source src="videos/XYScatterPlot_Demo.mp4" type="video/mp4">
+                </video>
+                <br>
+                <p class="text-justify">
+                    <b> Demo 4: Plotting charts</b>
+                </p>
+
+                <video id="summer sales" width="100%" playsinline muted loop autoplay onclick="setAttribute('controls', 'true');">
+                    <source src="videos/EntireSummerSales_Demo.mp4" type="video/mp4">
+                </video>
+                <br>
+                <p class="text-justify">
+                    <b> Demo 5: Analyzing And Visualizing Sales Data</b>
+                </p>
+
+                <video id="easy gdp" width="100%" playsinline muted loop autoplay onclick="setAttribute('controls', 'true');">
+                    <source src="videos/EasyGDP_Demo.mp4" type="video/mp4">
+                </video>
+                <br>
+                
+                <p class="text-justify">
+                    <b> Demo 6: Managing Huge Tables over A Cup of Coffee (Thousands of rows)</b>
+                </p>
+
                 <p></p>
 
             </div>
@@ -412,12 +479,67 @@
 
             </div>
         </div>
+        
+        <div class="col-md-8 col-md-offset-2">
+            <h3>
+                How to Use SheetCopilot
+            </h3>
+            <h4>
+                Code, SheetCopilot for Excel, and SheetCopilot add-on for Google Sheets will be released soon!
+            </h4>
+            <br>
+            <br>
+        </div>
+
+        <div class="col-md-8 col-md-offset-2">
+            <h3>
+                Citation
+            </h3>
+            <p>
+                <textarea id="bibtex" class="form-control" readonly="" style="display: none;">@misc{li2023sheetcopilot,
+title={SheetCopilot: Bringing Software Productivity to the Next Level through Large Language Models}, 
+author={Hongxin Li and Jingran Su and Yuntao Chen and Qing Li and Zhaoxiang Zhang},
+year={2023},
+eprint={2305.19308},
+archivePrefix={arXiv}
+}</textarea>
+
+        </div>
 
 
+        <div class="col-md-8 col-md-offset-2">
+            <h3>
+                Support
+            </h3>
 
+            <p class="text-justify">
+                See the <a href="support.html">support page</a> for how to install and use SheetCopilot for Google Sheets.
+            </p>
+        </div>
 
+        <div class="col-md-8 col-md-offset-2">
+            <h3>
+                Privacy Policy
+            </h3>
 
+            <p class="text-justify">
+                See the <a href="privacy-policy.html">privacy policy</a> of SheetCopilot as a GoogleSheets Add-on.
+            </p>
+        </div>
+               
+        <div class="col-md-8 col-md-offset-2">
+            <h3>
+                Terms of Service
+            </h3>
+
+            <p class="text-justify">
+                See the <a href="terms-of-service.html">terms of service</a> of SheetCopilot as a GoogleSheets Add-on.
+            </p>
+        </div>
+
+        
     </div>
+
     <script>
     const myCarousel = document.getElementById('carouselExampleCaptions')
     myCarousel.addEventListener('slide.bs.carousel', event => {
